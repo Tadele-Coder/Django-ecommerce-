@@ -1,0 +1,127 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    <div class="row">
+
+        {% if cart %}
+        <h1 class="text-center mb-5">Shopping Cart</h1>
+
+        <!-- LEFT SIDE CART ITEMS -->
+        <div class="col-sm-8">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h3>Cart Items</h3>
+
+                    {% for item in cart %}
+                    <div class="row mb-3">
+
+                        <!-- IMAGE -->
+                        <div class="col-sm-3 text-center align-self-center">
+                            <img src="{{ item.product.product_image.url }}"
+                                 class="img-fluid img-thumbnail shadow-sm"
+                                 height="150" width="150">
+                        </div>
+
+                        <!-- DETAILS -->
+                        <div class="col-sm-9">
+
+                            <h5>{{ item.product.title }}</h5>
+
+                            <p class="mb-2 text-muted small">
+                                {{ item.product.description }}
+                            </p>
+
+                            <!-- QUANTITY -->
+                            <div class="my-3">
+                                <label>Quantity</label>
+
+                                <a class="minus-cart btn" pid="{{ item.product.id }}">
+                                    <i class="fas fa-minus-square fa-lg"></i>
+                                </a>
+
+                                <span class="quantity">{{ item.quantity }}</span>
+
+                                <a class="plus-cart btn" pid="{{ item.product.id }}">
+                                    <i class="fas fa-plus-square fa-lg"></i>
+                                </a>
+                            </div>
+
+                            <!-- REMOVE + PRICE -->
+                            <div class="d-flex justify-content-between">
+
+                                <a href="#" class="remove-cart btn btn-sm btn-secondary"
+                                   pid="{{ item.product.id }}">
+                                    Remove item
+                                </a>
+
+                                <p class="mb-0">
+                                    <strong>
+                                        {{ item.current_price }} BIRR
+                                    </strong>
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE SUMMARY -->
+        <div class="col-sm-4">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h3>Order Summary</h3>
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            Amount
+                            <span id="amount">{{ amount }} BIRR</span>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            Transport
+                            <span id="shipping">250 BIRR</span>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Total</strong>
+                            <span id="totalamount">
+                                <strong>{{ totalamount }} BIRR</strong>
+                            </span>
+                        </li>
+
+                    </ul>
+
+                    <div class="d-grid mt-3">
+                        <a href="{% url 'checkout' %}" class="btn btn-danger">
+                            Place Order
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        {% else %}
+            <h1 class="text-center">Cart is Empty</h1>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock main-content %}

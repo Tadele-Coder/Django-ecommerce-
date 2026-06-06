@@ -1,0 +1,97 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}About{% endblock title %}
+
+{% block banner-slider %}
+
+<!-- Hero Carousel -->
+<div id="tikusCarousel" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel">
+
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#tikusCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#tikusCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#tikusCarousel" data-bs-slide-to="2"></button>
+    </div>
+
+    <div class="carousel-inner">
+
+        <div class="carousel-item active">
+            <img src="{% static 'app/image/products/juice1.jpg' %}"
+                 class="d-block w-100 carousel-img"
+                 alt="TIKUS Restaurant">
+            <div class="carousel-caption">
+                <h1 class="display-4 fw-bold">Welcome to TIKUS Restaurant</h1>
+                <p>Fresh • Delicious • Quality Food</p>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <img src="{% static 'app/image/products/burgers1.jpg' %}"
+                 class="d-block w-100 carousel-img"
+                 alt="Burgers">
+            <div class="carousel-caption">
+                <h1 class="display-4 fw-bold">Best Burgers in Town</h1>
+                <p>Juicy and freshly prepared every day</p>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <img src="{% static 'app/image/products/grilled.jpg' %}"
+                 class="d-block w-100 carousel-img"
+                 alt="Traditional Food">
+            <div class="carousel-caption">
+                <h1 class="display-4 fw-bold">Authentic Ethiopian Cuisine</h1>
+                <p>Traditional taste with modern service</p>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#tikusCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#tikusCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+
+</div>
+
+{% endblock banner-slider %}
+
+{% block main-content %}
+
+<div class="container mt-5">
+
+    <!-- About Section -->
+    <h2 class="text-center fw-bold mb-4">About Us</h2>
+
+    <p class="fs-5 text-center">
+        Welcome to <strong>TIKUS Restaurant</strong>, where great food and exceptional service come together
+        to create a memorable dining experience. We are passionate about serving freshly prepared meals
+        made from high-quality ingredients, offering a menu that combines local favorites with international flavors.
+    </p>
+
+    <p class="fs-5 text-center">
+        Whether you are joining us for breakfast, lunch, dinner, or a special occasion, our goal is to provide
+        a warm and welcoming atmosphere where family, friends, and colleagues can enjoy delicious food and excellent hospitality.
+    </p>
+
+    <hr class="my-5">
+
+    <!-- Mission Section -->
+    <h2 class="text-center fw-bold mb-4">Our Mission</h2>
+
+    <p class="fs-5 text-center">
+        Our mission is to delight every guest with fresh, flavorful, and high-quality meals while providing outstanding customer service.
+        We strive to create a comfortable dining environment, maintain the highest standards of food safety and quality,
+        and continuously improve our menu to meet the tastes and expectations of our valued customers.
+    </p>
+
+    <p class="fs-5 text-center">
+        At TIKUS Restaurant, every meal is prepared with care, passion, and a commitment to excellence.
+    </p>
+
+</div>
+
+{% endblock main-content %}

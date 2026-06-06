@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}login-user{% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    <div class="row">
+        
+        <h3>
+            Welcome:
+            <span class="text-capitalize">{{ request.user }}</span>
+        </h3>
+
+        <!-- Sidebar -->
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid mb-2">
+                    <a href="{% url 'profile' %}" class="btn btn-outline-primary">
+                        Profile
+                    </a>
+                </li>
+
+                <li class="d-grid">
+                    <a href="{% url 'address' %}" class="btn btn-danger">
+                        Address
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Address Cards -->
+        <div class="col-sm-8 offset-sm-1">
+            <div class="row">
+
+                {% for ad in add %}
+                <div class="col-sm-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+
+                            <h4 class="mb-3">
+                                Address {{ forloop.counter }}
+                            </h4>
+
+                            <p><strong>Name:</strong> {{ ad.name }}</p>
+                            <p><strong>Locality:</strong> {{ ad.locality }}</p>
+                            <p><strong>Mobile:</strong> {{ ad.mobile }}</p>
+                            <p><strong>City:</strong> {{ ad.city }}</p>
+                            <p><strong>State:</strong> {{ ad.state }}</p>
+                            <p><strong>Zipcode:</strong> {{ ad.zipcode }}</p>
+                            <p class="text-center"><a href="{% url 'updateAddress' pk=ad.id %}" 
+                                type="button" class="btn btn-danger">Update</a></fp>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br><br>
+
+{% endblock main-content %}

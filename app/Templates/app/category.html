@@ -1,0 +1,67 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Category{% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-sm-3">
+            <div class="list-group">
+                {% for val in title %}
+                    <a href="#"
+                       class="list-group-item list-group-item-action">
+                        {{ val.title }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Products -->
+        <div class="col-sm-9">
+            <div class="row">
+
+                {% for prod in product %}
+                <div class="col-md-4 col-sm-6 mb-4">
+
+                    <div class="card h-100 text-center shadow-sm">
+
+                        <a href="{% url 'product-detail' prod.id %}"
+                           class="text-decoration-none text-dark">
+
+                            <img src="{{ prod.product_image.url }}"
+                                 class="card-img-top img-fluid p-2"
+                                 height="200"
+                                 alt="{{ prod.title }}">
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">
+                                    {{ prod.title }}
+                                </h5>
+
+                                <p class="text-danger fw-bold">
+                                    {{ prod.selling_price }} BIRR 
+                                       
+                                    </small>
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock main-content %}

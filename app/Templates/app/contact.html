@@ -1,0 +1,117 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Contact{% endblock %}
+
+{% block main-content %}
+
+<div class="container py-5">
+
+    <!-- Title -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Contact & Location</h2>
+        <p class="text-muted">We are always ready to serve you</p>
+    </div>
+
+    
+   <!-- MAP -->
+<div class="shadow rounded overflow-hidden mb-5">
+
+    <div class="ratio ratio-16x9">
+
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.6227273883505!2d38.79226997361183!3d9.006818889338685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b855025c8a9bd%3A0x51ef7fa4cdaf39ce!2sWelasha%20Coffee%20Trading!5e0!3m2!1sen!2set!4v1780492922537!5m2!1sen!2set"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+    </div>
+
+</div>
+
+    <!-- CONTACT CARDS -->
+    <div class="row g-4 text-center">
+
+        <!-- Address -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 h-100 contact-card">
+                <i class="fa-solid fa-location-dot fa-2x text-danger mb-3"></i>
+                <h5>Address</h5>
+                <p class="text-muted mb-0">Addis Ababa, Ethiopia</p>
+            </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 h-100 contact-card">
+                <i class="fa-solid fa-phone fa-2x text-danger mb-3"></i>
+                <h5>Phone</h5>
+                <p class="text-muted mb-0">+251 911 168 881</p>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 h-100 contact-card">
+                <i class="fa-solid fa-envelope fa-2x text-danger mb-3"></i>
+                <h5>Email</h5>
+                <p class="text-muted mb-0">info@tikusrestaurant.com</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <div class="text-center mt-5">
+
+        <h5 class="fw-bold mb-3">Follow Us</h5>
+
+        <div class="d-flex justify-content-center gap-3">
+
+            <a href="#" class="social-icon">
+                <i class="fab fa-facebook fa-2x text-primary"></i>
+            </a>
+
+            <a href="#" class="social-icon">
+                <i class="fab fa-instagram fa-2x text-danger"></i>
+            </a>
+
+            <a href="#" class="social-icon">
+                <i class="fab fa-telegram fa-2x text-info"></i>
+            </a>
+
+            <a href="#" class="social-icon">
+                <i class="fab fa-tiktok fa-2x text-dark"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- STYLE -->
+<style>
+
+.contact-card{
+    border-radius: 15px;
+    transition: 0.3s ease;
+}
+
+.contact-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.social-icon{
+    transition: 0.3s ease;
+}
+
+.social-icon:hover{
+    transform: translateY(-5px);
+}
+</style>
+
+{% endblock %}

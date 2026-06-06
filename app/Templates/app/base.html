@@ -1,0 +1,370 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dairy Products | {% block title %}{% endblock title %}</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+     <style>
+
+        body{
+            background:#fff8f0;
+        }
+
+    </style>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+</head>
+
+<body>
+
+    
+<!-- ================= NAVBAR START ================= -->
+
+<nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="/">
+
+            <img src="{% static 'app/image/logo/logo2.png' %}"
+                 width="110"
+                 height="55"
+                 class="logo-img">
+
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler shadow-none border-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse"
+             id="navbarSupportedContent">
+
+            <!-- Left Menu -->
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link active-nav" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
+
+                        Our Menu
+
+                    </a>
+
+                    <ul class="dropdown-menu custom-dropdown">
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'ST' %}">Starters</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'BR' %}">Burgers</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'PZ' %}">Pizza</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'GD' %}">Grilled Dishes</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'PS' %}">Pasta</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'RS' %}">Rice & Asian Dishes</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'SN' %}">Sandwiches & Wraps</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'SL' %}">Salads</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'DS' %}">Desserts</a></li>
+
+                        <li><a class="dropdown-item" href="{% url 'category' 'JU' %}">Fresh Juice & Drinks</a></li>
+
+                    </ul>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">
+                        About
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Search -->
+            <form class="d-flex search-box"
+                  method="GET"
+                  action="{% url 'search' %}">
+
+                <input class="form-control search-input"
+                       type="search"
+                       name="search"
+                       placeholder="Search food...">
+
+                <button class="btn search-btn" type="submit">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+            </form>
+
+            <!-- Right Side -->
+            <ul class="navbar-nav align-items-center ms-3">
+
+                <!-- Wishlist -->
+                <li class="nav-item mx-2">
+
+                    <a href="{% url 'wishlist' %}"
+                       class="nav-link icon-link">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                        {% if wishlist_count > 0 %}
+                        <span class="badge bg-danger">
+                            {{ wishlist_count }}
+                        </span>
+                        {% endif %}
+
+                    </a>
+
+                </li>
+
+                <!-- Cart -->
+                <li class="nav-item mx-2">
+
+                    <a href="{% url 'showcart' %}"
+                       class="nav-link icon-link">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        <span class="badge bg-danger">
+                            {{ totalitem }}
+                        </span>
+
+                    </a>
+
+                </li>
+
+                <!-- Login -->
+                <li class="nav-item mx-2">
+
+                    <a href="{% url 'login' %}"
+                       class="btn login-btn">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= NAVBAR END ================= -->
+
+
+    <!-- Banner -->
+    {% block banner-slider %}{% endblock banner-slider %}
+
+    <!-- Information -->
+    {% block information %}{% endblock information %}
+
+    <div class="my-5"></div>
+
+    <!-- Main Content -->
+    {% block main-content %}{% endblock main-content %}
+
+
+   
+<footer class="container-fluid bg-danger text-white pt-5 mt-5">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- About -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold mb-3">About Tikus Restaurant</h5>
+                <p class="small">
+                    Enjoy delicious international cuisine, fresh drinks, and a
+                    welcoming dining experience. We serve quality food made with
+                    passion every day.
+                </p>
+            </div>
+
+            <!-- Menu -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold mb-3">Our Menu</h5>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="{% url 'category' 'GD' %}">Grilled Dishes</a></li>
+                    <li><a href="{% url 'category' 'BR' %}">Burgers & Sandwiches</a></li>
+                    <li><a href="{% url 'category' 'PS' %}">Pasta & Pizza</a></li>
+                    <li><a href="{% url 'category' 'JU' %}">Juices & Desserts</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold mb-3">Quick Links</h5>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Menu</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold mb-3">Contact Us</h5>
+
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        Addis Ababa, Ethiopia
+                    </li>
+
+                    <li class="mb-2">
+                        <i class="fas fa-phone-alt me-2"></i>
+                        +251 911 16 88 81
+                    </li>
+
+                    <li class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        info@tikus.com
+                    </li>
+
+                    <li class="mb-3">
+                        <i class="fas fa-clock me-2"></i>
+                        Open 24/7
+                    </li>
+                </ul>
+
+                <!-- Social Media -->
+                <div class="social-icons">
+                    <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="border-light my-4">
+
+        <!-- Bottom Footer -->
+        <div class="text-center pb-3">
+            <p class="mb-0">
+                © 2026 Tikus Restaurant | Developed by
+                <strong>Tadele Mengistu</strong>
+            </p>
+        </div>
+
+    </div>
+
+</footer>
+
+<style>
+
+    footer{
+        background: linear-gradient(135deg, #c1121f, #e63946);
+    }
+
+    .footer-links li{
+        margin-bottom: 10px;
+    }
+
+    .footer-links a{
+        color: #fff;
+        text-decoration: none;
+        transition: 0.3s ease;
+        font-size: 15px;
+    }
+
+    .footer-links a:hover{
+        color: #ffd166;
+        padding-left: 5px;
+    }
+
+    .payment-logos img{
+        background: white;
+        padding: 6px 12px;
+        border-radius: 10px;
+        transition: 0.4s ease;
+    }
+
+    .payment-logos img:hover{
+        transform: translateY(-5px) scale(1.05);
+    }
+
+    hr{
+        opacity: 0.3;
+    }
+    .social-icons a {
+    color: white !important;
+    font-size: 22px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: white !important;
+    transform: translateY(-3px);
+    
+}
+
+</style>
+    <!-- Scripts -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="{% static 'app/js/all.min.js' %}"></script>
+
+    <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+
+    <script src="{% static 'app/js/myscript.js' %}"></script>
+
+</body>
+</html>

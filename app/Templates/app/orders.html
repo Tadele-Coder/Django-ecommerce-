@@ -1,0 +1,158 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Orders{% endblock title %}
+
+{% block main-content %}
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-danger">My Orders</h2>
+        <p class="text-muted">Welcome {{ request.user }}</p>
+    </div>
+
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-body">
+
+                    <h5 class="fw-bold mb-4">Dashboard</h5>
+
+                    <a href="{% url 'orders' %}"
+                       class="btn btn-danger w-100 rounded-pill">
+                        Orders
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders List -->
+        <div class="col-md-9">
+
+            {% for op in order_placed %}
+
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body">
+
+                    <div class="row align-items-center">
+
+                        <!-- Product Image -->
+                        <div class="col-md-3 text-center">
+                            <img src="{{ op.product.product_image.url }}"
+                                 class="img-fluid rounded-3"
+                                 style="height:120px; object-fit:cover;">
+                        </div>
+
+                        <!-- Details -->
+                        <div class="col-md-6">
+
+                            <h5 class="fw-bold">
+                                {{ op.product.title }}
+                            </h5>
+
+                            <p class="mb-1">
+                                Quantity:
+                                <strong>{{ op.quantity }}</strong>
+                            </p>
+
+                            <p class="mb-1">
+                                Price:
+                                <strong>ETB {{ op.total_cost }}</strong>
+                            </p>
+
+                            <!-- Status Badge -->
+                            <p class="mb-0">
+
+                                {% if op.status == 'Delivered' %}
+                                    <span class="badge bg-success">
+                                        {{ op.status }}
+                                    </span>
+
+                                {% elif op.status == 'Cancel' %}
+                                    <span class="badge bg-danger">
+                                        {{ op.status }}
+                                    </span>
+
+                                {% elif op.status == 'On the Way' %}
+                                    <span class="badge bg-warning text-dark">
+                                        {{ op.status }}
+                                    </span>
+
+                                {% elif op.status == 'Packed' %}
+                                    <span class="badge bg-info text-dark">
+                                        {{ op.status }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="badge bg-dark">
+                                        {{ op.status }}
+                                    </span>
+                                {% endif %}
+
+                            </p>
+
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="col-md-3">
+
+                            {% if op.status == 'Accepted' %}
+                                <div class="progress" style="height:10px;">
+                                    <div class="progress-bar bg-primary" style="width:20%"></div>
+                                </div>
+
+                            {% elif op.status == 'Packed' %}
+                                <div class="progress" style="height:10px;">
+                                    <div class="progress-bar bg-info" style="width:40%"></div>
+                                </div>
+
+                            {% elif op.status == 'On the Way' %}
+                                <div class="progress" style="height:10px;">
+                                    <div class="progress-bar bg-warning" style="width:70%"></div>
+                                </div>
+
+                            {% elif op.status == 'Delivered' %}
+                                <div class="progress" style="height:10px;">
+                                    <div class="progress-bar bg-success" style="width:100%"></div>
+                                </div>
+
+                            {% elif op.status == 'Cancel' %}
+                                <div class="progress" style="height:10px;">
+                                    <div class="progress-bar bg-danger" style="width:100%">
+                                        Cancelled
+                                    </div>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            {% empty %}
+
+            <!-- Empty State -->
+            <div class="text-center">
+                <img src="{% static 'app/images/empty-cart.png' %}"
+                     width="250">
+
+                <h4 class="mt-3 text-muted">
+                    No Orders Found
+                </h4>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

@@ -1,0 +1,102 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}checkout{% endblock title %}
+
+{% block main-content %}
+
+<div class="container">
+
+    {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row mt-5">
+
+        <!-- LEFT SIDE: ORDER DETAILS -->
+        <div class="col-sm-6">
+
+            <h4>Order Summary</h4>
+            <hr>
+
+            {% for item in cart_items %}
+            <div class="card mb-2">
+                <div class="card-body">
+
+                    <h5>Product: {{ item.product.title }}</h5>
+                    <p>Quantity: {{ item.quantity }}</p>
+
+                    <p>💰 Selling Price:  {{ original_amount }} BIRR</p>
+
+                    <p>🎯 Discount: {{ discount_amount }} BIRR</p>
+
+                    <p class="fw-bold">
+                        🛒 Current Price:{{ current_amount }} BIRR
+                    </p>
+                    <p>🚚 Transport: {{ transport }} BIRR</p>
+                    <hr>
+
+                    <strong>Total Cost = {{ totalamount }} BIRR</strong>
+
+                </div>
+            </div>
+            {% endfor %}
+
+            <hr>
+
+            <!-- SUMMARY SECTION -->
+            <h5>Price Summary</h5>
+
+            <p>💰 Selling Price: {{ original_amount }} BIRR</p>
+
+            <p>🎯 Discount: {{ discount_amount }} BIRR</p>
+
+            <p>🛒 Current Price: {{ current_amount }} BIRR</p>
+
+            <p>🚚 Transport: {{ transport }} BIRR</p>
+
+            <hr>
+
+            <h5>
+                Total Cost (including Transport) = {{ totalamount }} BIRR
+            </h5>
+
+            <small>
+                Terms and Conditions: By placing this order, you agree that all items are subject to availability,
+                 prices are in BIRR, and delivery charges apply. Orders cannot be changed after confirmation.
+            </small>
+
+        </div>
+
+        <!-- RIGHT SIDE: PAYMENT -->
+        <div class="col-sm-4 offset-sm-1">
+
+            <h4>Select Shipping Address</h4>
+            <hr>
+
+            <form action="{% url 'initiate_payment' %}" method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="totamount" value="{{ totalamount }}">
+
+                <button class="btn btn-danger w-100">
+                    Pay with Telebirr
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock main-content %}
+
+{% block payment-getway %}
+<script>
+</script>
+{% endblock payment-getway %}
