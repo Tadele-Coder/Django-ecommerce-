@@ -358,7 +358,7 @@ def payment_done(request):
             user=user,
             product=item.product,
             quantity=item.quantity,
-            price=unit_price,   # ✅ FIXED HERE
+            price=unit_price,   
             status="Pending"
         )
 
