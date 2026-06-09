@@ -137,6 +137,7 @@ class ProfileView(View):
             reg.save()
 
             messages.success(request, "Congratulations! Profile saved successfully.")
+            return redirect('home')
         else:
             messages.warning(request, "Invalid input data.")
 
@@ -233,14 +234,21 @@ class checkout(View):
 
         original_amount = 0
         discount_amount = 0
-
-        for p in cart_items:
-            original_amount += p.product.selling_price * p.quantity
-            discount_amount += p.product.discounted_price * p.quantity
-
-        current_amount = original_amount - discount_amount
+        current_amount = 0
 
         transport = 250
+
+        for item in cart_items:
+
+            item.original_price = item.product.selling_price * item.quantity
+            item.discount = item.product.discounted_price * item.quantity
+            item.current_price = item.original_price - item.discount
+            item.total_price = item.current_price + transport
+
+            original_amount += item.original_price
+            discount_amount += item.discount
+            current_amount += item.current_price
+
         totalamount = current_amount + transport
 
         return render(request, 'app/checkout.html', {

@@ -9,9 +9,9 @@
 
     {% if messages %}
         {% for msg in messages %}
-        <div class="alert alert-danger" role="alert">
-            {{ msg }}
-        </div>
+            <div class="alert alert-danger" role="alert">
+                {{ msg }}
+            </div>
         {% endfor %}
     {% endif %}
 
@@ -24,23 +24,30 @@
             <hr>
 
             {% for item in cart_items %}
-            <div class="card mb-2">
+            <div class="card mb-3 shadow-sm">
                 <div class="card-body">
 
-                    <h5>Product: {{ item.product.title }}</h5>
+                    <h5 class="mb-2">
+                        Product: {{ item.product.title }}
+                    </h5>
+
                     <p>Quantity: {{ item.quantity }}</p>
 
-                    <p>💰 Selling Price:  {{ original_amount }} BIRR</p>
+                    <p>💰 Selling Price: {{ item.original_price }} BIRR</p>
 
-                    <p>🎯 Discount: {{ discount_amount }} BIRR</p>
+                    <p>🎯 Discount: {{ item.discount }} BIRR</p>
 
                     <p class="fw-bold">
-                        🛒 Current Price:{{ current_amount }} BIRR
+                        🛒 Current Price: {{ item.current_price }} BIRR
                     </p>
+
                     <p>🚚 Transport: {{ transport }} BIRR</p>
+
                     <hr>
 
-                    <strong>Total Cost = {{ totalamount }} BIRR</strong>
+                    <h6 class="text-success">
+                        Total Cost = {{ item.total_price }} BIRR
+                    </h6>
 
                 </div>
             </div>
@@ -61,13 +68,15 @@
 
             <hr>
 
-            <h5>
+            <h4 class="text-dark">
                 Total Cost (including Transport) = {{ totalamount }} BIRR
-            </h5>
+            </h4>
 
-            <small>
+            <hr>
+
+            <small class="text-muted">
                 Terms and Conditions: By placing this order, you agree that all items are subject to availability,
-                 prices are in BIRR, and delivery charges apply. Orders cannot be changed after confirmation.
+                prices are in BIRR, and delivery charges apply. Orders cannot be changed after confirmation.
             </small>
 
         </div>
@@ -75,11 +84,24 @@
         <!-- RIGHT SIDE: PAYMENT -->
         <div class="col-sm-4 offset-sm-1">
 
-            <h4>Select Shipping Address</h4>
+            <h4>Payment</h4>
             <hr>
 
             <form action="{% url 'initiate_payment' %}" method="POST">
                 {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Select Shipping Address</label>
+
+                    <select class="form-select" required>
+                        <option value="">Choose Address</option>
+                        {% for addr in user.customer_set.all %}
+                            <option value="{{ addr.id }}">
+                                {{ addr.locality }}, {{ addr.city }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
                 <input type="hidden" name="totamount" value="{{ totalamount }}">
 
@@ -98,5 +120,6 @@
 
 {% block payment-getway %}
 <script>
+    // optional JS later for Telebirr or AJAX
 </script>
 {% endblock payment-getway %}
