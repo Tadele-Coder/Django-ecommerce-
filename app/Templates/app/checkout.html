@@ -90,18 +90,7 @@
             <form action="{% url 'initiate_payment' %}" method="POST">
                 {% csrf_token %}
 
-                <div class="mb-3">
-                    <label class="form-label">Select Shipping Address</label>
-
-                    <select class="form-select" required>
-                        <option value="">Choose Address</option>
-                        {% for addr in user.customer_set.all %}
-                            <option value="{{ addr.id }}">
-                                {{ addr.locality }}, {{ addr.city }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
+               
 
                 <input type="hidden" name="totamount" value="{{ totalamount }}">
 

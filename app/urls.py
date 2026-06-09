@@ -1,8 +1,8 @@
 from django.urls import path
 from django.contrib import admin
-from django.contrib.auth.views import LogoutView
 from . import views
 from .views import MyPasswordResetConfirmView
+from .views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('category/<slug:val>/', views.CategoryView.as_view(), name='category'),
     path('product-detail/<int:pk>/', views.ProductDetail.as_view(), name='product-detail'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
 
@@ -88,7 +89,7 @@ path(
     ),
     name='passwordchangedone'
 ),
-path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+
 
 
 
