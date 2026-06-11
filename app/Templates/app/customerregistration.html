@@ -12,36 +12,32 @@
             <h3>Customer Registration</h3>
             <hr>
 
-            <form action="" method="post" novalidate class="shadow p-5">
-
+            <form method="post" novalidate class="shadow p-5">
                 {% csrf_token %}
 
                 {% for fm in form %}
-                    <div class="mb-3">
-                        {{ fm.label_tag }}
+                <div class="mb-3">
+
+                    {{ fm.label_tag }}
+
+                    <div class="input-group">
+
                         {{ fm }}
-                        <small class="text-danger">
-                            {{ fm.errors|striptags }}
-                        </small>
+
+                        {% if 'password' in fm.name %}
+                        <span class="input-group-text toggle-eye"
+                              onclick="togglePassword('{{ fm.id_for_label }}', this)">
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+                        {% endif %}
+
                     </div>
+
+                    <small class="text-danger">{{ fm.errors|striptags }}</small>
+                </div>
                 {% endfor %}
 
-                <input type="submit" value="Submit" class="btn btn-danger">
-
-                <div class="text-center text-primary fw-bold mt-3">
-                    <small>
-                        Existing User?
-                        <a href="{% url 'login' %}" class="text-danger">Login Now</a>
-                    </small>
-                </div>
-
-                {% if messages %}
-                    {% for msg in messages %}
-                        <div class="alert alert-{{ msg.tags }} mt-3">
-                            {{ msg }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
+                <input type="submit" value="Submit" class="btn btn-danger w-100">
 
             </form>
 
@@ -49,6 +45,47 @@
     </div>
 </div>
 
-<br><br>
+<!-- ===== STYLE ===== -->
+<style>
+/* remove right border overlap */
+.input-group .form-control{
+    border-right: 0;
+}
+
+/* remove blue focus border */
+.input-group .form-control:focus{
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}
+
+/* eye button style */
+.toggle-eye{
+    background: white;
+    border-left: 0;
+    cursor: pointer;
+}
+
+.toggle-eye i{
+    color: #555;
+}
+</style>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+function togglePassword(fieldId, btn){
+    const input = document.getElementById(fieldId);
+    const icon = btn.querySelector("i");
+
+    if (input.type === "password"){
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+</script>
 
 {% endblock main-content %}

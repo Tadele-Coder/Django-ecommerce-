@@ -96,7 +96,7 @@ class CustomerRegistrationView(View):
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Registration Successful")
+            messages.success(request, "Login Successful")
             return redirect('login') 
         else:
             messages.warning(request, "Invalid registration data")
