@@ -21,18 +21,18 @@ CATEGORY_CHOICES = (
 )
 
 STATE_CHOICES = (
-    ('AA', 'Addis Ababa'),
-    ('BD', 'Bahirdar'),
-    ('GR', 'Gondar'),
-    ('DS', 'Dessie'),
-    ('MK', 'Mekele'),
-    ('Debrebirhan', 'Debrebirhan'),
-    ('AW', 'Awassa'),
-    ('NT', 'Nazret'),
-    ('JM', 'Jimma'),
-    ('GL', 'Gambella'),
-    ('AS', 'Assosa'),
-    ('SR', 'Semera'),
+    ('BL', 'Bole'),
+    ('YK', 'Yeka'),
+    ('LM', 'Lemi Kura'),
+    ('AR', 'Arada'),
+    ('AD', 'Addis Ketema'),
+    ('LF', 'Nifas Silk Lafto'),
+    ('AK', 'Akaky Kality'),
+    ('KR', 'Kirkos'),
+    ('GL', 'Gullele'),
+    ('LD', 'Lideta'),
+    ('KF', 'Kolfe Keranio'),
+   
 )
 STATUS_CHOICES = (
     ('Accepted','Accepted'),
@@ -58,14 +58,15 @@ class Product(models.Model):
 class Customer(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-    locality = models.CharField(max_length=200)
+    full_name = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
+    subcity = models.CharField(choices=STATE_CHOICES, max_length=100)
+    specific_area = models.CharField(max_length=200)
     mobile = models.IntegerField(default=0)
-    zipcode = models.IntegerField()
-    state = models.CharField(choices=STATE_CHOICES, max_length=100)
+    additional_phone = models.IntegerField()
+    
     def __str__(self):
-        return self.name
+        return self.full_name
         
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

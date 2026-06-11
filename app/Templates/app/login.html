@@ -5,45 +5,104 @@
 
 {% block main-content %}
 
-    <div class="container">
-        <div class="row my-3">
-            <div class="col-sm-6 offset-sm-3">
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
 
-                <h3>User Login</h3>
-                <hr>
+            <h3>User Login</h3>
+            <hr>
 
-                <form action="" method="post" novalidate class="shadow p-5">
+            <form method="post" novalidate class="shadow p-5">
 
-                    {% csrf_token %}
+                {% csrf_token %}
 
-                    {% for fm in form %}
-                        <div class="mb-3">
-                            {{ fm.label_tag }}
+                {% for fm in form %}
+
+                    <div class="mb-3">
+
+                        {{ fm.label_tag }}
+
+                        {% if fm.name == "password" %}
+                            <div class="position-relative">
+                                {{ fm }}
+                                <span class="toggle-eye"
+                                      onclick="togglePassword(this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
+                            </div>
+                        {% else %}
                             {{ fm }}
-                            <small class="text-danger">
-                                {{ fm.errors|striptags }}
-                            </small><br/>
-                    {% endfor %}
-                            <small><a href="{% url 'password_reset' %}">Forgot Password</a></small>
-                            <br/><br/>
-                        
-                   
+                        {% endif %}
 
-                    <input type="submit" value="Login" class="btn btn-danger">
-
-                    <div class="text-center text-primary fw-bold mt-3">
-                        <small>
-                            New User?
-                            <a href="{% url 'customerregistration' %}" class="text-danger">Create an Account</a>
+                        <small class="text-danger">
+                            {{ fm.errors|striptags }}
                         </small>
+
                     </div>
-                    {% if form.non_field_errors %}
-                        {% for errors in form.non_field_error %}
-                            <p class="alert alert-danger my-3">{{error}}</p>
-                        {% endfor %}
-                    {% endif %}
-                </form>
-            </div>
+
+                {% endfor %}
+
+                <small>
+                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                </small>
+
+                <br><br>
+
+                <input type="submit" value="Login" class="btn btn-danger w-100">
+
+                <div class="text-center text-primary fw-bold mt-3">
+                    <small>
+                        New User?
+                        <a href="{% url 'customerregistration' %}" class="text-danger">
+                            Create an Account
+                        </a>
+                    </small>
+                </div>
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger my-3">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+
+            </form>
+
         </div>
     </div>
+</div>
+
+<!-- ================= STYLE ================= -->
+<style>
+.toggle-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+}
+
+.toggle-eye:hover {
+    color: #000;
+}
+</style>
+
+<!-- ================= JS ================= -->
+<script>
+function togglePassword(el) {
+    let input = el.parentElement.querySelector("input");
+    let icon = el.querySelector("i");
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+</script>
+
 {% endblock main-content %}

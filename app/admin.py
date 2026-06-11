@@ -10,9 +10,32 @@ class ProductModelAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'title', 'discounted_price', 'category', 'product_image']
 
+   
 @admin.register(Customer)
 class CustomerModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'locality', 'city', 'state', 'zipcode']
+    list_display = [
+        'id',
+        'user',
+        'full_name',
+        'city',
+        'subcity',
+        'specific_area',
+        'mobile',
+        'additional_phone',
+    ]
+
+    search_fields = [
+        'full_name',
+        'city',
+        'mobile',
+    ]
+
+    list_filter = [
+        'subcity',
+        
+    ]
+
+
 @admin.register(Cart)
 class CartModelAdmin(admin.ModelAdmin):
     list_display= ['id', 'user', 'products', 'quantity']

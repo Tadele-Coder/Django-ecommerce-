@@ -105,42 +105,42 @@ class CustomerRegistrationView(View):
 
 @method_decorator(login_required, name='dispatch')
 class ProfileView(View):
+
     def get(self, request):
         form = CustomerProfileForm()
 
         totalitem = 0
         if request.user.is_authenticated:
-            totalitem = len(Cart.objects.filter(user=request.user))
+            totalitem = Cart.objects.filter(user=request.user).count()
+
+            if Customer.objects.filter(user=request.user).exists():
+                return redirect('home')
+
         return render(request, 'app/profile.html', locals())
 
     def post(self, request):
         form = CustomerProfileForm(request.POST)
 
+        totalitem = 0
+        if request.user.is_authenticated:
+            totalitem = Cart.objects.filter(user=request.user).count()
+
         if form.is_valid():
-            user = request.user
-            name = form.cleaned_data['name']
-            locality = form.cleaned_data['locality']
-            city = form.cleaned_data['city']
-            mobile = form.cleaned_data['mobile']
-            state = form.cleaned_data['state']
-            zipcode = form.cleaned_data['zipcode']
 
-            reg = Customer(
-                user=user,
-                name=name,
-                locality=locality,
-                mobile=mobile,
-                city=city,
-                state=state,
-                zipcode=zipcode
+            Customer.objects.create(
+                user=request.user,
+                full_name=form.cleaned_data['full_name'],
+                city=form.cleaned_data['city'],
+                subcity=form.cleaned_data['subcity'],
+                specific_area=form.cleaned_data['specific_area'],
+                mobile=form.cleaned_data['mobile'],
+                additional_phone=form.cleaned_data['additional_phone'],
             )
-            reg.save()
 
-            messages.success(request, "Congratulations! Profile saved successfully.")
+            messages.success(request, "Profile saved successfully.")
             return redirect('home')
-        else:
-            messages.warning(request, "Invalid input data.")
 
+        messages.warning(request, "Invalid input data.")
         return render(request, 'app/profile.html', locals())
 
 @method_decorator(login_required, name='dispatch')
